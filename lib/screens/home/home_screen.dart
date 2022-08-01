@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:must_do/core/constants/text_styles.dart';
+import 'package:must_do/core/data/dummy_tasks.dart';
 import 'package:must_do/screens/home/home_viewmodel.dart';
 import 'package:provider/provider.dart';
 
@@ -55,36 +56,68 @@ class HomeScreen extends StatelessWidget {
                   const SizedBox(
                     height: 30,
                   ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 55, 55, 55)
-                          .withOpacity(0.7),
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    child: ListTile(
-                      minLeadingWidth: 10,
-                      contentPadding: const EdgeInsets.symmetric(
-                          vertical: 4, horizontal: 8),
-                      title: const Text(
-                        'Make a simple UI, and also add many things into it.',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16.5,
-                        ),
-                      ),
-                      leading: Container(
-                        height: 23,
-                        width: 23,
+                  ListView.builder(
+                    padding: EdgeInsets.zero,
+                    shrinkWrap: true,
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: dummyTasks.length,
+                    itemBuilder: ((context, index) {
+                      return Container(
+                        margin: const EdgeInsets.symmetric(vertical: 3),
                         decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          // color: Colors.white,
-                          border: Border.all(
-                            color: Colors.white,
-                            width: 2,
+                          color: Colors.black.withOpacity(0.8),
+                          // color: const Color.fromARGB(255, 55, 55, 55),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        child: ListTile(
+                          minLeadingWidth: 10,
+                          contentPadding: const EdgeInsets.symmetric(
+                              vertical: 4, horizontal: 8),
+                          title: Text(
+                            dummyTasks[index].task,
+                            style: TextStyle(
+                              color: dummyTasks[index].isDone
+                                  ? Colors.white70
+                                  : Colors.white,
+                              fontSize: 16.5,
+                              decoration: dummyTasks[index].isDone
+                                  ? TextDecoration.lineThrough
+                                  : null,
+                            ),
+                          ),
+                          leading: GestureDetector(
+                            child: Container(
+                              height: 23,
+                              width: 23,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: dummyTasks[index].isDone
+                                    ? Colors.white60
+                                    : Colors.transparent,
+                                border: Border.all(
+                                  color: dummyTasks[index].isDone
+                                      ? Colors.white60
+                                      : Colors.white,
+                                  width: 2,
+                                ),
+                              ),
+                              child: Center(
+                                child: Icon(
+                                  Icons.check,
+                                  color: dummyTasks[index].isDone
+                                      ? Colors.black
+                                      : Colors.transparent,
+                                  size: 17,
+                                ),
+                              ),
+                            ),
+                            onTap: () {
+                              model.toggleTask(index);
+                            },
                           ),
                         ),
-                      ),
-                    ),
+                      );
+                    }),
                   ),
                 ],
               ),
