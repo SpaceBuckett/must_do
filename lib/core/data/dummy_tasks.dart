@@ -16,5 +16,5 @@ List<Task> dummyTasks = [
   Task(
     task: 'Make collections and fetch collections from firebase',
     isDone: false,
-  )
+  ),
 ];
