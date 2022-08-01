@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+import 'package:must_do/core/data/dummy_tasks.dart';
 import 'package:must_do/core/models/base_model.dart';
 
 class HomeViewModel extends BaseViewModel {
@@ -14,5 +15,10 @@ class HomeViewModel extends BaseViewModel {
 
   monthDay(DateTime date) {
     return DateFormat.d().format(date).toString();
+  }
+
+  toggleTask(index) {
+    dummyTasks[index].isDone = !dummyTasks[index].isDone;
+    notifyListeners();
   }
 }
