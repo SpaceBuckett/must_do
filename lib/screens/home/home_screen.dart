@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:must_do/core/constants/text_styles.dart';
 import 'package:must_do/core/data/dummy_tasks.dart';
+import 'package:must_do/core/models/tasks/tasks_model.dart';
 import 'package:must_do/screens/home/home_viewmodel.dart';
 import 'package:provider/provider.dart';
 
@@ -77,7 +78,39 @@ class HomeScreen extends StatelessWidget {
                 Icons.add,
                 color: Colors.black,
               ),
-              onPressed: () {},
+              onPressed: () {
+                showModalBottomSheet(
+                  isScrollControlled: true,
+                  context: context,
+                  builder: (BuildContext context) {
+                    return Container(
+                      padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).viewInsets.bottom,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.black.withOpacity(0.8),
+                      ),
+                      // You can wrap this Column with Padding of 8.0 for better design
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextField(
+                          cursorColor: Colors.white70,
+                          autofocus: true,
+                          maxLines: 2,
+                          style: const TextStyle(
+                            color: Colors.white70,
+                          ),
+                          textInputAction: TextInputAction.done,
+                          onSubmitted: (value) {
+                            model.addTask(value);
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
             ),
           ),
         ),
