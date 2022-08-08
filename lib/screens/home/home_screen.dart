@@ -64,7 +64,7 @@ class HomeScreen extends StatelessWidget {
                             padding: EdgeInsets.zero,
                             shrinkWrap: true,
                             physics: const BouncingScrollPhysics(),
-                            itemCount: dummyTasks.length,
+                            itemCount: model.tasks.length,
                             itemBuilder: ((context, index) {
                               return taskTile(index, model);
                             }),
@@ -135,12 +135,12 @@ class HomeScreen extends StatelessWidget {
         minLeadingWidth: 10,
         contentPadding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
         title: Text(
-          dummyTasks[index].task!,
+          model.tasks[index].task!,
           style: TextStyle(
-            color: dummyTasks[index].isDone! ? Colors.white70 : Colors.white,
+            color: model.tasks[index].isDone! ? Colors.white70 : Colors.white,
             fontSize: 16.5,
             decoration:
-                dummyTasks[index].isDone! ? TextDecoration.lineThrough : null,
+                model.tasks[index].isDone! ? TextDecoration.lineThrough : null,
           ),
         ),
         leading: GestureDetector(
@@ -149,19 +149,19 @@ class HomeScreen extends StatelessWidget {
             width: 23,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: dummyTasks[index].isDone!
+              color: model.tasks[index].isDone!
                   ? Colors.white60
                   : Colors.transparent,
               border: Border.all(
                 color:
-                    dummyTasks[index].isDone! ? Colors.white60 : Colors.white,
+                    model.tasks[index].isDone! ? Colors.white60 : Colors.white,
                 width: 2,
               ),
             ),
             child: Center(
               child: Icon(
                 Icons.check,
-                color: dummyTasks[index].isDone!
+                color: model.tasks[index].isDone!
                     ? Colors.black
                     : Colors.transparent,
                 size: 17,

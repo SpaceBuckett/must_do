@@ -11,7 +11,14 @@ class Task {
 
   Task.fromJson(json, id) {
     this.id = json['id'];
-    this.task = json['tast'];
+    this.task = json['task'];
     this.isDone = json['isDone'] ?? false;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['task'] = this.task;
+    data['isDone'] = this.isDone;
+    return data;
   }
 }

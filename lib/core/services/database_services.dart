@@ -21,4 +21,13 @@ class DatabaseService {
     }
     return tasks;
   }
+
+  addTask(Task task) async {
+    print('@Adding Task');
+    try {
+      await _db.collection('tasks').add(task.toJson());
+    } catch (error) {
+      print('Error: $error');
+    }
+  }
 }

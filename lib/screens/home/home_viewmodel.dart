@@ -11,6 +11,7 @@ class HomeViewModel extends BaseViewModel {
   bool taskDataLoading = false;
 
   List<Task> tasks = [];
+  Task? newTask;
 
   HomeViewModel() {
     getTasks();
@@ -29,14 +30,21 @@ class HomeViewModel extends BaseViewModel {
   }
 
   toggleTask(index) {
-    dummyTasks[index].isDone = !dummyTasks[index].isDone!;
+    tasks[index].isDone = !tasks[index].isDone!;
     notifyListeners();
   }
 
-  addTask(String task) {
-    dummyTasks.add(
+  addTask(String task) async {
+    taskDataLoading = true;
+    tasks.add(
       Task(task: task, isDone: false),
     );
+    newTask = Task(
+      task: task,
+      isDone: false,
+    );
+    await _dbService.addTask(newTask!);
+    taskDataLoading = false;
     notifyListeners();
   }
 
