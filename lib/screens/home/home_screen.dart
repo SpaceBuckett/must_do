@@ -58,15 +58,17 @@ class HomeScreen extends StatelessWidget {
                     const SizedBox(
                       height: 30,
                     ),
-                    ListView.builder(
-                      padding: EdgeInsets.zero,
-                      shrinkWrap: true,
-                      physics: const BouncingScrollPhysics(),
-                      itemCount: dummyTasks.length,
-                      itemBuilder: ((context, index) {
-                        return taskTile(index, model);
-                      }),
-                    ),
+                    model.taskDataLoading
+                        ? const CircularProgressIndicator()
+                        : ListView.builder(
+                            padding: EdgeInsets.zero,
+                            shrinkWrap: true,
+                            physics: const BouncingScrollPhysics(),
+                            itemCount: dummyTasks.length,
+                            itemBuilder: ((context, index) {
+                              return taskTile(index, model);
+                            }),
+                          ),
                   ],
                 ),
               ),
@@ -99,10 +101,13 @@ class HomeScreen extends StatelessWidget {
                           maxLines: 2,
                           style: const TextStyle(
                             color: Colors.white70,
+                            fontSize: 18,
                           ),
                           textInputAction: TextInputAction.done,
                           onSubmitted: (value) {
-                            model.addTask(value);
+                            if (value.isNotEmpty) {
+                              model.addTask(value);
+                            }
                             Navigator.pop(context);
                           },
                         ),
@@ -130,12 +135,12 @@ class HomeScreen extends StatelessWidget {
         minLeadingWidth: 10,
         contentPadding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
         title: Text(
-          dummyTasks[index].task,
+          dummyTasks[index].task!,
           style: TextStyle(
-            color: dummyTasks[index].isDone ? Colors.white70 : Colors.white,
+            color: dummyTasks[index].isDone! ? Colors.white70 : Colors.white,
             fontSize: 16.5,
             decoration:
-                dummyTasks[index].isDone ? TextDecoration.lineThrough : null,
+                dummyTasks[index].isDone! ? TextDecoration.lineThrough : null,
           ),
         ),
         leading: GestureDetector(
@@ -144,18 +149,19 @@ class HomeScreen extends StatelessWidget {
             width: 23,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: dummyTasks[index].isDone
+              color: dummyTasks[index].isDone!
                   ? Colors.white60
                   : Colors.transparent,
               border: Border.all(
-                color: dummyTasks[index].isDone ? Colors.white60 : Colors.white,
+                color:
+                    dummyTasks[index].isDone! ? Colors.white60 : Colors.white,
                 width: 2,
               ),
             ),
             child: Center(
               child: Icon(
                 Icons.check,
-                color: dummyTasks[index].isDone
+                color: dummyTasks[index].isDone!
                     ? Colors.black
                     : Colors.transparent,
                 size: 17,
