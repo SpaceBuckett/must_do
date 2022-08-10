@@ -1,5 +1,4 @@
 import 'package:intl/intl.dart';
-import 'package:must_do/core/data/dummy_tasks.dart';
 import 'package:must_do/core/locator.dart';
 import 'package:must_do/core/models/base_model.dart';
 import 'package:must_do/core/models/tasks/tasks_model.dart';

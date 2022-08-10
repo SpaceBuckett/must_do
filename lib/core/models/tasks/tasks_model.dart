@@ -1,5 +1,5 @@
 class Task {
-  int? id;
+  String? id;
   String? task;
   bool? isDone;
 
@@ -9,8 +9,7 @@ class Task {
     this.isDone,
   });
 
-  Task.fromJson(json, id) {
-    this.id = json['id'];
+  Task.fromJson(json, this.id) {
     this.task = json['task'];
     this.isDone = json['isDone'] ?? false;
   }

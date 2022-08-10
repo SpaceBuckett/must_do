@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:intl/intl.dart';
 import 'package:must_do/core/constants/text_styles.dart';
-import 'package:must_do/core/data/dummy_tasks.dart';
-import 'package:must_do/core/models/tasks/tasks_model.dart';
 import 'package:must_do/screens/home/home_viewmodel.dart';
 import 'package:provider/provider.dart';
 
