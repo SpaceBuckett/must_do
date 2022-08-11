@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:must_do/core/locator.dart';
 import 'package:must_do/firebase_options.dart';
-import 'package:must_do/screens/auth/signup/signup_screen.dart';
-import 'package:must_do/screens/home/home_screen.dart';
+import 'package:must_do/screens/auth/signup/signup_screen1.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,7 +27,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         useMaterial3: true,
       ),
-      home: const SignUpScreen(),
+      home: SignUpScreenOne(),
       //  HomeScreen(),
     );
   }
