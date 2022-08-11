@@ -7,9 +7,18 @@ import 'package:must_do/core/services/database_services.dart';
 class AuthService extends ChangeNotifier {
   final _dbService = DatabaseService();
   UserProfile userProfile = UserProfile();
+  User? user;
   CustomAuthResult customAuthResult = CustomAuthResult();
-
   late bool isLogin;
+
+  init() async{
+    user = FirebaseAuth.instance.currentUser;
+    if(user!=null){
+      user = FirebaseAuth.instance.currentUser;
+      userProfile = await _dbService.getUser(user!.uid);
+    }
+
+  }
 
   Future<CustomAuthResult> signUpWithEmailandPassword(
       UserProfile userProfile) async {
