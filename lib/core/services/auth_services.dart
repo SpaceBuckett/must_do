@@ -11,13 +11,12 @@ class AuthService extends ChangeNotifier {
   CustomAuthResult customAuthResult = CustomAuthResult();
   late bool isLogin;
 
-  init() async{
+  init() async {
     user = FirebaseAuth.instance.currentUser;
-    if(user!=null){
+    if (user != null) {
       user = FirebaseAuth.instance.currentUser;
       userProfile = await _dbService.getUser(user!.uid);
     }
-
   }
 
   Future<CustomAuthResult> signUpWithEmailandPassword(

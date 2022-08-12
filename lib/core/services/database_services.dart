@@ -43,6 +43,10 @@ class DatabaseService {
     return tasks;
   }
 
+  updateFcmToken(fcmToken, userId) async {
+    await _db.collection('users').doc(userId).update({'fcmToke': fcmToken});
+  }
+
   addTask(Task task) async {
     print('@Adding Task');
     try {
