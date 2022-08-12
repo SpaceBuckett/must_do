@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:must_do/core/constants/text_styles.dart';
 import 'package:must_do/screens/auth/signup/signup_screen2.dart';
 
 class SignUpScreenOne extends StatelessWidget {
@@ -41,8 +42,10 @@ class SignUpScreenOne extends StatelessWidget {
                 textInputAction: TextInputAction.done,
                 keyboardType: TextInputType.emailAddress,
                 cursorColor: Colors.black,
-                decoration: const InputDecoration(
-                  focusedBorder: UnderlineInputBorder(
+                decoration: InputDecoration(
+                  hintText: 'Your email...',
+                  hintStyle: kHintTextStyle,
+                  focusedBorder: const UnderlineInputBorder(
                     borderSide: BorderSide(
                       color: Colors.black,
                     ),
