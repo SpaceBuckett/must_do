@@ -9,13 +9,21 @@ class AuthService extends ChangeNotifier {
   UserProfile userProfile = UserProfile();
   User? user;
   CustomAuthResult customAuthResult = CustomAuthResult();
-  late bool isLogin;
+  late bool isLogin = false;
+
+  AuthService() {
+    init();
+  }
 
   init() async {
+    print('@AuthService/init!!');
     user = FirebaseAuth.instance.currentUser;
     if (user != null) {
+      isLogin = true;
       user = FirebaseAuth.instance.currentUser;
       userProfile = await _dbService.getUser(user!.uid);
+    } else {
+      isLogin = false;
     }
   }
 
@@ -33,9 +41,11 @@ class AuthService extends ChangeNotifier {
         userProfile.id = credentials.user!.uid;
         await _dbService.registerUser(userProfile);
         this.userProfile = userProfile;
+        isLogin = true;
         notifyListeners();
       } else {
         customAuthResult.status = false;
+        isLogin = false;
         return customAuthResult;
       }
     } on FirebaseAuthException catch (e) {
@@ -48,5 +58,39 @@ class AuthService extends ChangeNotifier {
       print('Error: $error\nStacktrace: $stacktrace');
     }
     return customAuthResult;
+  }
+
+  ///
+  /// [Sign] with email and password
+  ///
+  Future<CustomAuthResult> loginWithEmailAndPassword(
+      String email, String password) async {
+    try {
+      final credentials = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
+      if (credentials.user != null) {
+        userProfile = await _dbService.getUser(credentials.user!.uid);
+        customAuthResult.status = true;
+        customAuthResult.user = credentials.user;
+        isLogin = true;
+      } else {
+        customAuthResult.status = false;
+        customAuthResult.errorMessage =
+            'Some unknown error occured while signing in';
+      }
+    } catch (e) {
+      customAuthResult.status = false;
+      print('Exception: $e');
+    }
+
+    return customAuthResult;
+  }
+
+  ///
+  /// [Logout]
+  ///
+  logout() async {
+    await FirebaseAuth.instance.signOut();
+    isLogin = false;
   }
 }

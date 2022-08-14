@@ -1,23 +1,27 @@
 class Task {
   String? id;
+  String? userId;
   String? task;
   bool? isDone;
 
   Task({
     this.id,
+    this.userId,
     this.task,
     this.isDone,
   });
 
   Task.fromJson(json, this.id) {
-    this.task = json['task'];
-    this.isDone = json['isDone'] ?? false;
+    userId = json['userId'];
+    task = json['task'];
+    isDone = json['isDone'] ?? false;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['task'] = this.task;
-    data['isDone'] = this.isDone;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['userId'] = userId;
+    data['task'] = task;
+    data['isDone'] = isDone;
     return data;
   }
 }
