@@ -29,9 +29,23 @@ class HomeScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    const Text(
-                      'My Day',
-                      style: heading1,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          'My Day',
+                          style: heading1,
+                        ),
+                        GestureDetector(
+                            child: const Icon(
+                              Icons.logout_outlined,
+                              color: Colors.white,
+                              size: 32,
+                            ),
+                            onTap: () {
+                              model.logout();
+                            })
+                      ],
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 2.0),

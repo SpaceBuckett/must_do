@@ -25,10 +25,13 @@ class DatabaseService {
     }
   }
 
-  Future<List<Task>> getTasks() async {
+  Future<List<Task>> getTasks(String userId) async {
     List<Task> tasks = [];
     try {
-      QuerySnapshot snapshot = await _db.collection('tasks').get();
+      QuerySnapshot snapshot = await _db
+          .collection('tasks')
+          .where('userId', isEqualTo: userId)
+          .get();
       if (snapshot.docs.isEmpty) {
         print('No Data Found');
       } else {
