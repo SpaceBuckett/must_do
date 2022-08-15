@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:must_do/core/constants/text_styles.dart';
+import 'package:must_do/screens/auth/signin/signin_screen_one.dart';
 import 'package:must_do/screens/auth/signup/signup_screen2.dart';
 
 class SignUpScreenOne extends StatelessWidget {
@@ -64,7 +65,23 @@ class SignUpScreenOne extends StatelessWidget {
                   }
                 },
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 30),
+              GestureDetector(
+                  child: const Align(
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      'or Sign Up',
+                      style: TextStyle(
+                        decoration: TextDecoration.underline,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.black38,
+                      ),
+                    ),
+                  ),
+                  onTap: () {
+                    Get.to(() => SignInScreenOne());
+                  }),
             ],
           ),
         ),
