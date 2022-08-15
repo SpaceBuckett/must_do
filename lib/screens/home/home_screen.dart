@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:must_do/core/constants/text_styles.dart';
+import 'package:must_do/core/models/tasks/tasks_model.dart';
 import 'package:must_do/screens/home/home_viewmodel.dart';
 import 'package:provider/provider.dart';
 
@@ -74,11 +75,36 @@ class HomeScreen extends StatelessWidget {
                             padding: EdgeInsets.zero,
                             shrinkWrap: true,
                             physics: const BouncingScrollPhysics(),
-                            itemCount: model.tasks.length,
+                            itemCount: model.tasksTodo.length,
                             itemBuilder: ((context, index) {
-                              return taskTile(index, model);
+                              return taskTile(index, model.tasksTodo, model);
                             }),
                           ),
+                    if (model.completedTasks.isNotEmpty)
+                      Container(
+                        margin: const EdgeInsets.only(top: 10, bottom: 10),
+                        decoration: BoxDecoration(
+                          color: Colors.black87,
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        child: const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text(
+                            'Completed Tasks',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    if (model.completedTasks.isNotEmpty)
+                      ListView.builder(
+                        padding: EdgeInsets.zero,
+                        shrinkWrap: true,
+                        physics: const BouncingScrollPhysics(),
+                        itemCount: model.completedTasks.length,
+                        itemBuilder: ((context, index) {
+                          return taskTile(index, model.completedTasks, model);
+                        }),
+                      ),
                   ],
                 ),
               ),
@@ -133,7 +159,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Container taskTile(int index, HomeViewModel model) {
+  Container taskTile(int index, List<Task> tasks, HomeViewModel model) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 3),
       decoration: BoxDecoration(
@@ -145,12 +171,12 @@ class HomeScreen extends StatelessWidget {
         minLeadingWidth: 10,
         contentPadding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
         title: Text(
-          model.tasks[index].task!,
+          tasks[index].task!,
           style: TextStyle(
-            color: model.tasks[index].isDone! ? Colors.white70 : Colors.white,
+            color: tasks[index].isDone! ? Colors.white70 : Colors.white,
             fontSize: 16.5,
             decoration:
-                model.tasks[index].isDone! ? TextDecoration.lineThrough : null,
+                tasks[index].isDone! ? TextDecoration.lineThrough : null,
           ),
         ),
         leading: GestureDetector(
@@ -159,27 +185,26 @@ class HomeScreen extends StatelessWidget {
             width: 23,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: model.tasks[index].isDone!
-                  ? Colors.white60
-                  : Colors.transparent,
+              color: tasks[index].isDone! ? Colors.white60 : Colors.transparent,
               border: Border.all(
-                color:
-                    model.tasks[index].isDone! ? Colors.white60 : Colors.white,
+                color: tasks[index].isDone! ? Colors.white60 : Colors.white,
                 width: 2,
               ),
             ),
             child: Center(
               child: Icon(
                 Icons.check,
-                color: model.tasks[index].isDone!
-                    ? Colors.black
-                    : Colors.transparent,
+                color: tasks[index].isDone! ? Colors.black : Colors.transparent,
                 size: 17,
               ),
             ),
           ),
           onTap: () {
-            model.toggleTask(index);
+            model.toggleIsDone(
+              index,
+              tasks[index].isDone!,
+              tasks[index],
+            );
           },
         ),
       ),
