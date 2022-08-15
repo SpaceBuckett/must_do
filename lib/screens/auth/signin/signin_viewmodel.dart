@@ -1,5 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:must_do/core/locator.dart';
 import 'package:must_do/core/models/base_model.dart';
@@ -24,10 +24,10 @@ class SignInViewModel extends BaseViewModel {
       userProfile.fcmToken = await FirebaseMessaging.instance.getToken();
       await _dbService.updateFcmToken(
           userProfile.fcmToken, authResult.user!.uid);
-      print('Signed In Successfully');
+      debugPrint('Signed In Successfully');
       Get.to(() => const HomeScreen());
     } else {
-      print('Could not Sign in');
+      debugPrint('Could not Sign in');
     }
   }
 }
