@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:must_do/core/locator.dart';
@@ -13,7 +14,9 @@ class HomeViewModel extends BaseViewModel {
   bool taskDataLoading = false;
   final _authService = locator<AuthService>();
 
-  List<Task> tasks = [];
+  List<Task> allTasks = [];
+  List<Task> tasksTodo = [];
+  List<Task> completedTasks = [];
   Task? newTask;
 
   HomeViewModel() {
@@ -32,38 +35,62 @@ class HomeViewModel extends BaseViewModel {
     return DateFormat.d().format(date).toString();
   }
 
-  toggleTask(index) {
-    tasks[index].isDone = !tasks[index].isDone!;
-    notifyListeners();
-  }
+  // toggleTask(index) {
+  //   tasks[index].isDone = !tasks[index].isDone!;
+  //   notifyListeners();
+  // }
 
   addTask(String task) async {
-    taskDataLoading = true;
-    tasks.add(
+    tasksTodo.add(
       Task(userId: _authService.userProfile.id, task: task, isDone: false),
     );
-    print("Adding task User Id: ${_authService.userProfile.id}");
+    notifyListeners();
+    debugPrint("Adding task User Id: ${_authService.userProfile.id}");
     newTask = Task(
       userId: _authService.userProfile.id,
       task: task,
       isDone: false,
     );
     await _dbService.addTask(newTask!);
-    taskDataLoading = false;
     notifyListeners();
   }
 
   getTasks() async {
     taskDataLoading = true;
-    tasks = await _dbService.getTasks(_authService.userProfile.id!);
-    print('Tasks Length: ${tasks.length}');
+    completedTasks =
+        await _dbService.getCompletedTasks(_authService.userProfile.id!);
+    tasksTodo = await _dbService.getTasksToDo(_authService.userProfile.id!);
+
     taskDataLoading = false;
+    notifyListeners();
+  }
+
+  toggleIsDone(index, bool status, Task task) async {
+    debugPrint('--------------------');
+    debugPrint('Status: $status');
+    debugPrint('--------------------');
+
+    if (status == false) {
+      tasksTodo[index].isDone = true;
+      completedTasks.add(tasksTodo[index]);
+      tasksTodo.removeAt(index);
+      notifyListeners();
+      await _dbService.updateTask(true, task.id);
+    } else {
+      completedTasks[index].isDone = false;
+      tasksTodo.add(completedTasks[index]);
+      completedTasks.removeAt(index);
+      notifyListeners();
+      await _dbService.updateTask(false, task.id);
+    }
+    // tasks[index].isDone = !tasks[index].isDone!;
+    // _dbService.updateTask(tasks[index].isDone!, tasks[index].id);
     notifyListeners();
   }
 
   logout() async {
     await _authService.logout();
-    print('Siging Out...');
+    debugPrint('Siging Out...');
     Get.to(() => SignInScreenOne());
   }
 }

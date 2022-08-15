@@ -17,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
   final _authService = locator<AuthService>();
 
   naviagetToNextScreen() async {
-    await Future.delayed(const Duration(milliseconds: 200));
+    await Future.delayed(const Duration(milliseconds: 400));
     if (_authService.isLogin) {
       Navigator.pushAndRemoveUntil(
           context,
