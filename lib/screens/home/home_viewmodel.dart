@@ -18,6 +18,7 @@ class HomeViewModel extends BaseViewModel {
   List<Task> tasksTodo = [];
   List<Task> completedTasks = [];
   Task? newTask;
+  bool showCompletedTasks = true;
 
   HomeViewModel() {
     getTasks();
@@ -85,6 +86,11 @@ class HomeViewModel extends BaseViewModel {
     }
     // tasks[index].isDone = !tasks[index].isDone!;
     // _dbService.updateTask(tasks[index].isDone!, tasks[index].id);
+    notifyListeners();
+  }
+
+  toggleTaskVisibility() {
+    showCompletedTasks = !showCompletedTasks;
     notifyListeners();
   }
 

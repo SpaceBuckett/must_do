@@ -87,24 +87,48 @@ class HomeScreen extends StatelessWidget {
                           color: Colors.black87,
                           borderRadius: BorderRadius.circular(6),
                         ),
-                        child: const Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Text(
-                            'Completed Tasks',
-                            style: TextStyle(color: Colors.white),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 8.0, horizontal: 12),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              GestureDetector(
+                                child: Icon(
+                                  model.showCompletedTasks
+                                      ? Icons.keyboard_arrow_down
+                                      : Icons.keyboard_arrow_right,
+                                  color: Colors.white,
+                                ),
+                                onTap: () {
+                                  model.toggleTaskVisibility();
+                                },
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              Text(
+                                'Completed ${model.completedTasks.length}',
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
                     if (model.completedTasks.isNotEmpty)
-                      ListView.builder(
-                        padding: EdgeInsets.zero,
-                        shrinkWrap: true,
-                        physics: const BouncingScrollPhysics(),
-                        itemCount: model.completedTasks.length,
-                        itemBuilder: ((context, index) {
-                          return taskTile(index, model.completedTasks, model);
-                        }),
-                      ),
+                      if (model.showCompletedTasks == true)
+                        ListView.builder(
+                          padding: EdgeInsets.zero,
+                          shrinkWrap: true,
+                          physics: const BouncingScrollPhysics(),
+                          itemCount: model.completedTasks.length,
+                          itemBuilder: ((context, index) {
+                            return taskTile(index, model.completedTasks, model);
+                          }),
+                        ),
                   ],
                 ),
               ),
