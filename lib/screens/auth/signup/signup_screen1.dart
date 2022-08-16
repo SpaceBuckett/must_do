@@ -70,7 +70,7 @@ class SignUpScreenOne extends StatelessWidget {
                   child: const Align(
                     alignment: Alignment.centerRight,
                     child: Text(
-                      'or Sign Up',
+                      'or Sign In',
                       style: TextStyle(
                         decoration: TextDecoration.underline,
                         fontSize: 18,
