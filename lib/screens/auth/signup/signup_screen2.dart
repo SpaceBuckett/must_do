@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:must_do/core/constants/text_styles.dart';
 import 'package:must_do/screens/auth/signup/signup_screen3.dart';
@@ -19,12 +20,12 @@ class SignUpScreenTwo extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              const Padding(
-                padding: EdgeInsets.only(top: 88.0, right: 30),
+              Padding(
+                padding: const EdgeInsets.only(top: 88.0, right: 30),
                 child: Text(
                   'Sign up',
                   style: TextStyle(
-                    fontSize: 36,
+                    fontSize: 36.sp,
                     fontWeight: FontWeight.w900,
                   ),
                 ),
@@ -32,12 +33,12 @@ class SignUpScreenTwo extends StatelessWidget {
               Text(
                 'Lets strengthen your account with a strong password!',
                 style: TextStyle(
-                  fontSize: 24,
+                  fontSize: 24.sp,
                   fontWeight: FontWeight.w400,
                   color: Colors.grey.shade500,
                 ),
               ),
-              const SizedBox(height: 120),
+              SizedBox(height: 120.h),
               TextFormField(
                 autofocus: true,
                 textInputAction: TextInputAction.done,
@@ -68,7 +69,7 @@ class SignUpScreenTwo extends StatelessWidget {
                   }
                 },
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: 20.h),
             ],
           ),
         ),
