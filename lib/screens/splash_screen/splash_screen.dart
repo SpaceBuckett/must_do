@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:must_do/core/constants/text_styles.dart';
 import 'package:must_do/core/locator.dart';
 import 'package:must_do/core/services/auth_services.dart';
 import 'package:must_do/screens/auth/signup/signup_screen1.dart';
@@ -17,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
   final _authService = locator<AuthService>();
 
   naviagetToNextScreen() async {
-    await Future.delayed(const Duration(milliseconds: 400));
+    await Future.delayed(const Duration(milliseconds: 500));
     if (_authService.isLogin) {
       Navigator.pushAndRemoveUntil(
           context,
@@ -41,10 +42,12 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Container(
-          height: 200,
-          width: 200,
-          color: Colors.grey,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 28.0),
+          child: Text(
+            'Lets get the things done...',
+            style: heading1.copyWith(color: Colors.black54),
+          ),
         ),
       ),
     );

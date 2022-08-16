@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:must_do/core/constants/text_styles.dart';
 import 'package:must_do/core/models/tasks/tasks_model.dart';
 import 'package:must_do/screens/home/home_viewmodel.dart';
@@ -66,8 +67,8 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 30,
+                    SizedBox(
+                      height: 30.h,
                     ),
                     model.taskDataLoading
                         ? const CircularProgressIndicator()
@@ -123,9 +124,9 @@ class HomeScreen extends StatelessWidget {
                               ),
                               Text(
                                 'Completed ${model.completedTasks.length}',
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 18,
+                                  fontSize: 18.sp,
                                 ),
                               ),
                             ],
@@ -173,9 +174,9 @@ class HomeScreen extends StatelessWidget {
                           cursorColor: Colors.white70,
                           autofocus: true,
                           maxLines: 2,
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: Colors.white70,
-                            fontSize: 18,
+                            fontSize: 18.sp,
                           ),
                           textInputAction: TextInputAction.done,
                           onSubmitted: (value) {
@@ -206,27 +207,27 @@ class HomeScreen extends StatelessWidget {
         borderRadius: BorderRadius.circular(5),
       ),
       child: ListTile(
-        minLeadingWidth: 10,
+        minLeadingWidth: 10.w,
         contentPadding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
         title: Text(
           tasks[index].task!,
           style: TextStyle(
             color: tasks[index].isDone! ? Colors.white70 : Colors.white,
-            fontSize: 16.5,
+            fontSize: 16.5.sp,
             decoration:
                 tasks[index].isDone! ? TextDecoration.lineThrough : null,
           ),
         ),
         leading: GestureDetector(
           child: Container(
-            height: 23,
-            width: 23,
+            height: 23.h,
+            width: 23.w,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: tasks[index].isDone! ? Colors.white60 : Colors.transparent,
               border: Border.all(
                 color: tasks[index].isDone! ? Colors.white60 : Colors.white,
-                width: 2,
+                width: 2.w,
               ),
             ),
             child: Center(

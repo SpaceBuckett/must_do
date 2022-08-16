@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:must_do/core/constants/text_styles.dart';
 import 'package:must_do/screens/auth/signin/signin_viewmodel.dart';
-import 'package:must_do/screens/auth/signup/signup_screen3.dart';
 import 'package:provider/provider.dart';
 
 class SignInScreenTwo extends StatelessWidget {
@@ -24,12 +23,12 @@ class SignInScreenTwo extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  const Padding(
-                    padding: EdgeInsets.only(top: 88.0, right: 30),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 88.0, right: 30),
                     child: Text(
                       'Sign in',
                       style: TextStyle(
-                        fontSize: 36,
+                        fontSize: 36.sp,
                         fontWeight: FontWeight.w900,
                       ),
                     ),
@@ -37,12 +36,12 @@ class SignInScreenTwo extends StatelessWidget {
                   Text(
                     'Lets prove its you by entering your password!',
                     style: TextStyle(
-                      fontSize: 24,
+                      fontSize: 24.sp,
                       fontWeight: FontWeight.w400,
                       color: Colors.grey.shade500,
                     ),
                   ),
-                  const SizedBox(height: 120),
+                  SizedBox(height: 120.h),
                   TextFormField(
                     autofocus: true,
                     textInputAction: TextInputAction.done,
@@ -70,7 +69,7 @@ class SignInScreenTwo extends StatelessWidget {
                       }
                     },
                   ),
-                  const SizedBox(height: 20),
+                  SizedBox(height: 20.h),
                 ],
               ),
             ),

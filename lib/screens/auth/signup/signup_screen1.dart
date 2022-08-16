@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:must_do/core/constants/text_styles.dart';
 import 'package:must_do/screens/auth/signin/signin_screen_one.dart';
@@ -19,12 +20,12 @@ class SignUpScreenOne extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              const Padding(
-                padding: EdgeInsets.only(top: 88.0, right: 30),
+              Padding(
+                padding: const EdgeInsets.only(top: 88.0, right: 30),
                 child: Text(
                   'Sign up',
                   style: TextStyle(
-                    fontSize: 36,
+                    fontSize: 36.sp,
                     fontWeight: FontWeight.w900,
                   ),
                 ),
@@ -32,12 +33,12 @@ class SignUpScreenOne extends StatelessWidget {
               Text(
                 'Lets get you registered with your email!',
                 style: TextStyle(
-                  fontSize: 24,
+                  fontSize: 24.sp,
                   fontWeight: FontWeight.w400,
                   color: Colors.grey.shade500,
                 ),
               ),
-              const SizedBox(height: 120),
+              SizedBox(height: 120.h),
               TextFormField(
                 autofocus: true,
                 textInputAction: TextInputAction.done,
@@ -65,15 +66,15 @@ class SignUpScreenOne extends StatelessWidget {
                   }
                 },
               ),
-              const SizedBox(height: 30),
+              SizedBox(height: 30.h),
               GestureDetector(
-                  child: const Align(
+                  child: Align(
                     alignment: Alignment.centerRight,
                     child: Text(
                       'or Sign In',
                       style: TextStyle(
                         decoration: TextDecoration.underline,
-                        fontSize: 18,
+                        fontSize: 18.sp,
                         fontWeight: FontWeight.w700,
                         color: Colors.black38,
                       ),
