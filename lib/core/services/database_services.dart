@@ -100,4 +100,13 @@ class DatabaseService {
     await tasks.doc(taskId).update({'isDone': isDone});
     debugPrint('Task Updated Successfully with value $isDone');
   }
+
+  Future<void> deleteTask(taskId) {
+    CollectionReference tasks = FirebaseFirestore.instance.collection('tasks');
+    return tasks
+        .doc(taskId)
+        .delete()
+        .then((value) => debugPrint("Task Deleted"))
+        .catchError((error) => debugPrint("Failed to delete task: $error"));
+  }
 }
