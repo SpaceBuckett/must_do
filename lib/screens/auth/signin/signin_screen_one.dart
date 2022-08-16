@@ -81,7 +81,7 @@ class SignInScreenOne extends StatelessWidget {
                   ),
                   onTap: () {
                     Get.to(() => SignUpScreenOne());
-                  })
+                  }),
             ],
           ),
         ),

@@ -94,6 +94,13 @@ class HomeViewModel extends BaseViewModel {
     notifyListeners();
   }
 
+  removeTask(int index, bool status) async {
+    if (status == false) {
+      await _dbService.deleteTask(tasksTodo[index].id);
+      tasksTodo.removeAt(index);
+    }
+  }
+
   logout() async {
     await _authService.logout();
     debugPrint('Siging Out...');

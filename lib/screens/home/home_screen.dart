@@ -77,7 +77,21 @@ class HomeScreen extends StatelessWidget {
                             physics: const BouncingScrollPhysics(),
                             itemCount: model.tasksTodo.length,
                             itemBuilder: ((context, index) {
-                              return taskTile(index, model.tasksTodo, model);
+                              final item = model.tasksTodo[index].task;
+                              return Dismissible(
+                                key: Key(item!),
+                                onDismissed: (direction) {
+                                  model.removeTask(
+                                      index, model.tasksTodo[index].isDone!);
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                          content: Text('$item dismissed')));
+                                },
+                                background: Container(
+                                  color: Colors.red.withOpacity(0.2),
+                                ),
+                                child: taskTile(index, model.tasksTodo, model),
+                              );
                             }),
                           ),
                     if (model.completedTasks.isNotEmpty)
