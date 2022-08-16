@@ -1,6 +1,8 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:must_do/core/constants/text_styles.dart';
 import 'package:must_do/core/locator.dart';
 import 'package:must_do/core/services/auth_services.dart';
@@ -15,15 +17,35 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void didChangeDependencies() {
+    _initialSetup();
+    super.didChangeDependencies();
+  }
+
+  _initialSetup() async {
+    ///
+    /// If not connected to internet, show an alert dialog
+    /// to activate the network connection.
+    ///
+    final connectivityResult = await Connectivity().checkConnectivity();
+    if (connectivityResult == ConnectivityResult.none) {
+      Get.dialog(
+        const AlertDialog(
+          title: Text('Network Error'),
+          content: Text('Connection to internet failed!'),
+        ),
+      );
+      return;
+    }
+  }
+
   final _authService = locator<AuthService>();
 
   naviagetToNextScreen() async {
-    await Future.delayed(const Duration(milliseconds: 500));
+    await Future.delayed(const Duration(milliseconds: 1000));
     if (_authService.isLogin) {
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) => const HomeScreen()),
-          (route) => false);
+      Get.off(() => const HomeScreen());
     } else {
       Navigator.pushAndRemoveUntil(
           context,

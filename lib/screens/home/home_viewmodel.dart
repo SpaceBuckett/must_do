@@ -21,6 +21,7 @@ class HomeViewModel extends BaseViewModel {
   bool showCompletedTasks = true;
 
   HomeViewModel() {
+    debugPrint('@HomeViewModel');
     getTasks();
   }
 
